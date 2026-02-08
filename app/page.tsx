@@ -1,65 +1,117 @@
-import Image from "next/image";
+"use client";
+
+import ParallaxHero from "@/components/ParallaxHero";
+import Navbar from "@/components/Navbar";
+import RubiksCube from "@/components/RubiksCube";
+import { RetroButton } from "@/components/RetroButton";
+import { Copy, ShoppingCart } from "lucide-react";
+import { useState } from "react";
+import clsx from "clsx";
+
+import Footer from "@/components/Footer";
+
+import Preloader from "@/components/Preloader";
 
 export default function Home() {
+  const [copied, setCopied] = useState(false);
+  const ca = "0x1234...5678"; // Placeholder CA
+
+  // CTA Image Settings (Fixed)
+  const ctaScale = 1.5;
+  const ctaX = 0;
+  const ctaY = 0;
+
+  // About Image Settings (Fixed)
+  const aboutScale = 0.8;
+  const aboutX = 250;
+  const aboutY = -210;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(ca);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="bg-[#05000A] min-h-screen text-white overflow-x-hidden">
+      <Preloader />
+      <Navbar />
+      <ParallaxHero />
+      
+
+      
+
+      
+
+      
+
+
+      {/* 3D Meme Cube & About Section */}
+      <section className="container mx-auto px-6 py-20 min-h-[50vh] flex flex-col items-center justify-center relative">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full max-w-6xl relative z-10">
+            {/* LEFT: Rubik's Cube */}
+            <div className="flex justify-center md:justify-end">
+                 <RubiksCube />
+            </div>
+
+            {/* RIGHT: About Section */}
+            <div className="text-left space-y-6 relative">
+                 {/* About Image */}
+                 <div 
+                    className="absolute pointer-events-none z-0"
+                    style={{
+                        transform: `translate(${aboutX}px, ${aboutY}px) scale(${aboutScale})`,
+                        top: 0,
+                        left: 0
+                    }}
+                 >
+                     <img src="/about.png" alt="About Decoration" className="opacity-80" />
+                 </div>
+
+                <div className="relative z-10">
+                    <h2 className="text-4xl md:text-5xl font-black text-[#fafafa] uppercase">
+                        ABOUT <span className="text-purple-500">DOGBY</span>
+                    </h2>
+                    <p className="text-lg text-gray-300 leading-relaxed max-w-lg">
+                        Meet Dogby, the squishiest meme token on the blockchain. 
+                        He's pink, he's round, and he's here to take over the moon with pure cuteness and community vibes.
+                    </p>
+
+                    <div className="flex flex-wrap gap-4 pt-4">
+                        {/* Copy CA Button */}
+                        <RetroButton onClick={handleCopy} className={clsx(copied && "bg-green-600 border-green-400 shadow-green-400")}>
+                            <Copy size={20} />
+                            {copied ? "Copied!" : "Copy CA"}
+                        </RetroButton>
+
+                        {/* Buy Button */}
+                        <RetroButton className="bg-black">
+                            <ShoppingCart size={20} />
+                            Buy Now
+                        </RetroButton>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+      </section>
+
+      {/* CTA Section */}
+      <section className="container mx-auto px-6 pb-20 flex justify-center relative z-10">
+          <div 
+            className="relative w-full max-w-5xl"
+            style={{
+                transform: `translate(${ctaX}px, ${ctaY}px) scale(${ctaScale})`
+            }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+              <img src="/cta.png" alt="Join the Movement" className="w-full h-auto object-contain transition-transform duration-300" />
+          </div>
+      </section>
+
+      <div className="relative z-20">
+        <Footer />
+      </div>
+    </main>
   );
 }
