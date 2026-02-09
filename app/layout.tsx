@@ -8,16 +8,16 @@ const blueWinter = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Dogby",
-  description: "The Squishiest Token",
-  icons: {
-    icon: "/favicon.png",
-  },
-  openGraph: {
-    title: "Dogby",
-    description: "The Squishiest Token",
-    images: ["/open.jpg"],
-  },
+	title: "DOGBY",
+	description: "The Squishiest Pup in the Cosmos",
+	icons: {
+		icon: "/favicon.ico",
+	},
+	openGraph: {
+		title: "DOGBY",
+		description: "The Squishiest Pup in the Cosmos",
+		images: ["/open.jpg"],
+	},
 };
 
 import SmoothScroll from "@/components/SmoothScroll";
